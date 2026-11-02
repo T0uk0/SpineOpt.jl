@@ -28,26 +28,28 @@ If you are starting from scratch:
 - File > New Project > Create/Select an empty folder
 - Drag and drop a Data Store ("Input"), a Run SpineOpt block, and another Data Store ("Output")
 
-!!! note If you are missing the RunSpineOpt block, go to Plugins > Install Plugin > SpineOpt
+!!! note
+    If you are missing the RunSpineOpt block, go to Plugins > Install Plugin > SpineOpt
 
 Set up the input data:
-- Select *Input* and in the *Data Store Properties* window:\
-	`Dialect: sqlite`\
-	`New Spine db` (button bottom left)\
-	`Save` - SpineToolbox will default to a location
+- Select *Input* and in the *Data Store Properties* window:
+  - `Dialect: sqlite`
+  - `New Spine db` (button bottom left)
+  - `Save` - SpineToolbox will default to a location
 - Double-click on *InputData* to open the DB Editor
 - Select File > Import > Choose the Simple System JSON file you downloaded earlier
 
 Set up the output data:
-- Select *Output* and in the *Data Store Properties* window:\
-	`Dialect: sqlite`\
-	`New Spine db` (button bottom left)\
-	`Save` - SpineToolbox will default to a location
+- Select *Output* and in the *Data Store Properties* window:
+  - `Dialect: sqlite`
+  - `New Spine db` (button bottom left)
+  - `Save` - SpineToolbox will default to a location
 
 Connect the system:
 - Click on the white squares to connect the blocks with arrows
 
-SpineOpt has two arguments: 0) Input database connection 1) Output database connection\
+SpineOpt has two arguments: 0) Input database connection 1) Output database connection.
+
 Set these arguments:
 - Select the Run SpineOpt block and in the *Tool Properties* window:
 - Drag and drop `db_url@Input` from *Available resources* to *Command line arguments*
@@ -62,20 +64,22 @@ Now your simple system should be set up for running. Try clicking the Execute Pr
 
 In SpineToolbox, double-click on the *Input* block.
 
-!!! note If you are ever missing a window in the Spine DB Editor, go to View and choose the missing window, then drag and resize the window to your preference.
+!!! note
+    If you are ever missing a window in the Spine DB Editor, go to View and choose the missing window, then drag and resize the window to your preference.
 
 In the *Entity tree* window:
 - Expand "node"
 - Select the electricity node
-- In the *Parameter value* window, find the value for the electricity node's demand (should be 150 from the Simple System) - right-click > Edit\
-	`Parameter type: Time Series fixed resolution`\
-	Copy and paste (or fill in the table):
-	
-		10
-		20
-		40
-		50
-		20
+- In the *Parameter value* window, find the value for the electricity node's demand (should be 150 from the Simple System) - right-click > Edit
+  - `Parameter type: Time Series fixed resolution`
+  - Copy and paste (or fill in the table):
+    ```
+    10
+    20
+    40
+    50
+    20
+    ```
 
 - Click OK - this sets the electricity demand to the variable profile listed above
 
@@ -90,21 +94,22 @@ In the *Entity Tree* window:
 - Click on "simple"
 
 In the *Parameter value* window:
-- Add [model\_start](@ref) \
-	`parameter_name:` (Double-click) [model\_start](@ref)\
-	`alternative_name:` `Base`\
-	`value:` (Right-click) Edit > `Parameter Type: Date Time` > `1 Jan` (default)
+- Add [model\_start](@ref)
+  - `parameter_name:` (Double-click) [model\_start](@ref)
+  - `alternative_name:` `Base`
+  - `value:` (Right-click) Edit > `Parameter Type: Date Time` > `1 Jan` (default)
 
-- Add [model\_end](@ref)\
-	`parameter_name:` [model\_end](@ref)\
-	`alternative_name: Base`\
-	`value:` Edit > `Parameter Type: Date Time` > 5 hours after start
+- Add [model\_end](@ref)
+  - `parameter_name:` [model\_end](@ref)
+  - `alternative_name: Base`
+  - `value:` Edit > `Parameter Type: Date Time` > 5 hours after start
 
 Your *Parameter value* window should look like this:
 
 ![image](figs_temporal/temporal_model_start_end.png)
 
-!!! note Regularly save your changes by pressing the *Commit button* in the ribbon and pressing commit. For significant changes it is recommended to write a meaningful commit message.
+!!! note
+    Regularly save your changes by pressing the *Commit button* in the ribbon and pressing commit. For significant changes it is recommended to write a meaningful commit message.
 
 #### Setting 1-hr resolution
 
@@ -149,21 +154,21 @@ You should see different colored lines, for the *electricity* and *fuel* flows t
 - Return to the SpineToolbox window and open the *Input* block.
 
 In the *Entity Tree* window:
-- Expand the [temporal\_block](@ref)\
-Notice there's a "flat" temporal block, with the attribute that it's the [model\_\_default\_temporal\_block](@ref)
+- Expand the [temporal\_block](@ref)
+  - Notice there's a "flat" temporal block, with the attribute that it's the [model\_\_default\_temporal\_block](@ref)
 
-- Right-click on [temporal\_block](@ref) and click "Add objects" (or click the '+' icon)\
-`entity name: not_flat` > Click OK
+- Right-click on [temporal\_block](@ref) and click "Add objects" (or click the '+' icon)
+  - `entity name: not_flat` > Click OK
 
 In the *Parameter value* window:
-- In a new row, set:\
-	`entity_byname: not_flat`\
-	`parameter_name:` [resolution](@ref)\
-	`alternative_name: Base`\
-	`value:` Right-click > Edit:\
-	`Parameter Type: Array`\
-	`Value type: Duration`\
-	`Value: 1, 1, 1, 2`
+- In a new row, set:
+  - `entity_byname: not_flat`
+  - `parameter_name:` [resolution](@ref)
+  - `alternative_name: Base`
+  - `value:` Right-click > Edit:
+  - `Parameter Type: Array`
+  - `Value type: Duration`
+  - `Value: 1, 1, 1, 2`
 
 The array should look like this: 
 
@@ -175,11 +180,11 @@ Now you have seen how to define a varying temporal resolution. You could give "n
 #### Assigning an entity a unique resolution
 
 In the *Entity tree* window:
-- Click on '+' next to the [node\_\_temporal\_block](@ref) *entity*\
-	[node](@ref): `fuel_node`\
-	[temporal_block](@ref): `not_flat`
-- Click OK\
-This sets the fuel node's temporal [resolution](@ref) to "not_flat" instead of the default of "flat"
+- Click on '+' next to the [node\_\_temporal\_block](@ref) *entity*
+  - [node](@ref): `fuel_node`
+  - [temporal_block](@ref): `not_flat`
+- Click OK
+  - This sets the fuel node's temporal [resolution](@ref) to "not_flat" instead of the default of "flat"
 
 ![image](figs_temporal/temporal_node_temporalblock.png)
 
